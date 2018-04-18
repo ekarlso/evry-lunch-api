@@ -3,12 +3,11 @@ node {
     try {
       stage("scm") {
       // This is to allow for easier import paths in go.
-        sh 'git config --global url."ssh://evry@vs-ssh.visualstudio.com:22/DefaultCollection/evry-iot/_ssh/".insteadOf "ssh://git@evry.visualstudio.com/reception/"'
-        git 'ssh://git@evry.visualstudio.com/reception/visitors-api'
+        git 'https://github.com/ekarlso/evry-lunch-api'
       }
 
       def registry = "evrybots.azurecr.io"
-      def imgName = "evry-reception-api"
+      def imgName = "evry-lunch-api"
 
       // https://github.com/deis/workflow-cli/blob/master/Jenkinsfile
       gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
@@ -29,17 +28,17 @@ node {
         }
       }
 
-      stage("test") {
-        docker.image("postgres").withRun("-p 5432:5432 -e POSTGRES_PASSWORD=postgres") { c -> 
-          docker.image(goImage).inside("-v ${workspace}:/src -w /src --link ${c.id}:db") {
-            sh "export GOCACHE=/src/.GOCACHE; export DB_CONNECTION='host=db port=5432 dbname=postgres user=postgres password=postgres sslmode=disable': V=1 make test"
-          }
-        }
+      // stage("test") {
+      //   docker.image("postgres").withRun("-p 5432:5432 -e POSTGRES_PASSWORD=postgres") { c -> 
+      //     docker.image(goImage).inside("-v ${workspace}:/src -w /src --link ${c.id}:db") {
+      //       sh "export GOCACHE=/src/.GOCACHE; export DB_CONNECTION='host=db port=5432 dbname=postgres user=postgres password=postgres sslmode=disable': V=1 make test"
+      //     }
+      //   }
 
-        docker.image(opaImage).inside("-v ${workspace}:/src -w /src --entrypoint ''") {
-          sh "/opa test -v policies"
-        }
-      }
+      //   docker.image(opaImage).inside("-v ${workspace}:/src -w /src --entrypoint ''") {
+      //     sh "/opa test -v policies"
+      //   }
+      // }
 
       stage("build") {
         docker.image(goImage).inside("-v ${workspace}:/src -w /src") {
