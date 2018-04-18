@@ -1,0 +1,38 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: evry-lunch-api
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: evry-lunch-api
+        version: v1
+    spec:
+      containers:
+      - name: evry-lunch-api
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+          - containerPort: 5000
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 5
+        # readinessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 5000
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 5
+        env:
+          - name: PATH_BASE
+            value: /api/lunch
+      imagePullSecrets:
+        - name: evrybotsdev
+      restartPolicy: Always

@@ -1,0 +1,6 @@
+image:
+  repository: evrybotsdev.azurecr.io/evry-communication-api
+auth:
+  discoveryUri: https://bots.evry.cloud/identity
+app:
+  hostname: reception.svg.evry.services

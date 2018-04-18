@@ -1,0 +1,17 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: evry-lunch-api
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: "{{ .Values.app.hostname }}"
+    http:
+      paths:
+      - path: /api/lunch
+        backend:
+          serviceName: lunch-api
+          servicePort: 80

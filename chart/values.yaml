@@ -1,0 +1,4 @@
+image:
+  repository: evrybotsdev.azurecr.io/evry-lunch-api
+app:
+  hostname: lunch.svg.evry.services
