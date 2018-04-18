@@ -1,0 +1,7 @@
+*.test
+vendor*/
+.GOPATH/
+bin/
+main
+/.GOPATH
+/bin
