@@ -7,8 +7,8 @@ import (
 
 	"github.com/satori/go.uuid"
 
-	"github.com/ekarlso/evry-lynsjer/db"
-	"github.com/ekarlso/evry-lynsjer/models"
+	"github.com/ekarlso/evry-lunch-api/db"
+	"github.com/ekarlso/evry-lunch-api/models"
 	"github.com/gorilla/mux"
 )
 

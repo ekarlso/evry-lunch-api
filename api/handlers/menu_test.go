@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ekarlso/evry-lynsjer/db"
+	"github.com/ekarlso/evry-lunch-api/db"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )

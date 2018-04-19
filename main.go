@@ -17,8 +17,8 @@ import (
 	"github.com/rs/cors"
 	"github.com/urfave/negroni"
 
-	"github.com/ekarlso/evry-lynsjer/api/handlers"
-	"github.com/ekarlso/evry-lynsjer/db"
+	"github.com/ekarlso/evry-lunch-api/api/handlers"
+	"github.com/ekarlso/evry-lunch-api/db"
 )
 
 func MakeCors() *cors.Cors {

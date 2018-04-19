@@ -1,7 +1,7 @@
 package db
 
 import (
-	"github.com/ekarlso/evry-lynsjer/models"
+	"github.com/ekarlso/evry-lunch-api/models"
 	"github.com/satori/go.uuid"
 	"github.com/sirupsen/logrus"
 
