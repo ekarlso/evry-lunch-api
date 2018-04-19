@@ -92,8 +92,8 @@ func main() {
 	n.Use(cors)
 
 	router := mux.NewRouter()
-	itemsRouter := handlers.MakeItemsRouter()
-	router.PathPrefix("/items").Handler(itemsRouter)
+	menuRouter := handlers.MakeItemsRouter()
+	router.PathPrefix("/menu").Handler(menuRouter)
 
 	prefix := viper.GetString("path_base")
 	if prefix != "" {

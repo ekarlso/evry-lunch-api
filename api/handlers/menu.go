@@ -18,14 +18,43 @@ type Dish struct {
 }
 
 type Menu struct {
-	Day    time.Time
-	Dishes []Dish
+	Day    time.Time `json:"day"`
+	Dishes []Dish    `json:"dishes"`
 }
 
 func GetMenu(w http.ResponseWriter, r *http.Request) {
 	// db.Connection.Order("created_at desc").Find(&items)
+	var menuItems []Menu
+
 	var entries []models.MenuEntry
 	db.Connection.Find(&entries)
+
+	for _, entry := range entries {
+		e := Menu{
+			Day: entry.Day,
+		}
+
+		dishes := []Dish{}
+		var dishRefs []models.Dish
+		db.Connection.Where(models.Dish{ID: entry.DishID}).Find(&dishRefs)
+		for _, dishRef := range dishRefs {
+			var allergenRefs []models.Allergen
+			db.Connection.Model(&dishRef).Related(&allergenRefs, "Allergens")
+
+			allergens := []string{}
+			for _, a := range allergenRefs {
+				allergens = append(allergens, a.Name)
+			}
+
+			dishes = append(dishes, Dish{Name: dishRef.Name, Allergens: allergens})
+		}
+
+		e.Dishes = dishes
+
+		menuItems = append(menuItems, e)
+	}
+
+	WriteJson(w, menuItems)
 }
 
 func CreateMenu(w http.ResponseWriter, r *http.Request) {

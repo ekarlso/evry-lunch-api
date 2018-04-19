@@ -22,6 +22,8 @@ type Dish struct {
 	UpdatedAt   time.Time `json:"updated_at"`
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
+
+	Allergens []Allergen `gorm:"many2many:dish_allergens"`
 }
 
 // DishAllergen - Which allergens does a dish contain ?
