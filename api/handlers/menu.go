@@ -45,7 +45,6 @@ func GetMenu(w http.ResponseWriter, r *http.Request) {
 			for _, a := range allergenRefs {
 				allergens = append(allergens, a.Name)
 			}
-
 			dishes = append(dishes, Dish{Name: dishRef.Name, Allergens: allergens})
 		}
 
