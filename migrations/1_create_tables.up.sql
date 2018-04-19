@@ -13,7 +13,7 @@ CREATE TABLE dishes
     id character(36) COLLATE pg_catalog."default" NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone,
-    name varchargit (40) NOT NULL,
+    name varchar (40) NOT NULL,
 	description TEXT,
     CONSTRAINT dish_id PRIMARY KEY (id)
 );
